@@ -205,10 +205,11 @@ export const GanttChart = forwardRef<GanttHandle, Props>(function GanttChart(pro
   }, [drag, dw, geo, rows, summary, project.tasks]) // eslint-disable-line react-hooks/exhaustive-deps
 
   // ---------- Ventana visible ----------
-  const x0 = Math.max(0, view.left - 300)
-  const x1v = Math.min(totalW, view.left + view.width + 300)
-  const y0 = Math.max(0, view.top - ROW_H * 4)
-  const y1 = Math.min(totalH, view.top + view.height + ROW_H * 4)
+  const x0 = Math.max(0, Math.min(view.left - 300, totalW - 1))
+  // Si el zoom ha encogido el lienzo, la posición leída puede quedar fuera: se acota para no generar anchos negativos
+  const x1v = Math.max(x0 + 1, Math.min(totalW, view.left + view.width + 300))
+  const y0 = Math.max(0, Math.min(view.top - ROW_H * 4, totalH - 1))
+  const y1 = Math.max(y0 + 1, Math.min(totalH, view.top + view.height + ROW_H * 4))
   const firstPos = Math.floor(y0 / ROW_H)
   const lastPos = Math.ceil(y1 / ROW_H)
   const dayFrom = Math.floor(rangeStart + x0 / dw)

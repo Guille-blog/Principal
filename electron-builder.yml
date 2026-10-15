@@ -12,6 +12,7 @@ fileAssociations:
     name: Proyecto Gantt Obra
     description: Planificación Gantt Obra
 win:
+  icon: build/icon.png
   target:
     - target: nsis
       arch: [x64]

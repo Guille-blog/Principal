@@ -487,6 +487,7 @@ export default function App() {
 
   useEffect(() => {
     const title = `${doc.dirty ? '● ' : ''}${project.info.name || 'Sin título'} — Gantt Obra`
+    document.title = title
     api.setDirty(doc.dirty, title)
   }, [doc.dirty, project.info.name])
 
