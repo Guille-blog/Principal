@@ -151,7 +151,7 @@ export function computeSchedule(project: Project): ScheduleResult {
     issues.push({
       level: 'error',
       code: 'cycle',
-      message: `Dependencia circular: ${cycle.map((i) => `fila ${i + 1} (${tasks[i].name || 'sin nombre'})`).join(' → ')} → … El camino crítico no se puede calcular hasta romper el ciclo.`,
+      message: `Dependencia circular: ${describeCycle(cycle, tasks)}. El camino crítico no se puede calcular hasta romper el ciclo.`,
       uids: cycle.map((i) => tasks[i].uid)
     })
     // Para poder dibujar algo, se procesan después los nodos atrapados en el ciclo ignorando sus vínculos.
@@ -497,6 +497,12 @@ function linkSlack(e: Edge, ES: number[], EF: number[]): number {
     case 'CF':
       return EF[e.succ] - (ES[e.pred] + L)
   }
+}
+
+function describeCycle(cycle: number[], tasks: Task[]): string {
+  const label = (i: number): string => `fila ${i + 1} (${tasks[i].name || 'sin nombre'})`
+  const steps = cycle.length > 6 ? [...cycle.slice(0, 3).map(label), `… ${cycle.length - 5} más …`, ...cycle.slice(-2).map(label)] : cycle.map(label)
+  return `${steps.join(' → ')} → vuelve a la fila ${cycle[0] + 1}`
 }
 
 /** Devuelve los índices de un ciclo entre los nodos que no pudieron ordenarse. */
