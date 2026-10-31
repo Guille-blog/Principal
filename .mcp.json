@@ -1,8 +1,0 @@
-{
-  "mcpServers": {
-    "rea": {
-      "command": "bash",
-      "args": ["${CLAUDE_PROJECT_DIR:-.}/.claude/rea/rea-mcp.sh"]
-    }
-  }
-}
