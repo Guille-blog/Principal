@@ -4,3 +4,7 @@ dist/
 release/
 *.log
 .DS_Store
+
+# Ingeniería inversa: binarios de terceros y salidas intermedias (no subir)
+ingenieria-inversa/objetivos/
+ingenieria-inversa/trabajo/
